@@ -6,23 +6,22 @@ var enemies = 20;
 
 for (var i = 0; i < enemies; i++) {
   array[i] = Math.floor(Math.random() * i);
-};
+}
 
 
 var score = 0;
 var gameOver = false;
 
+//var rot = 0;
 var move = function (){
-  svg.selectAll('image')
+  svg.selectAll('img')
     .transition()
     .duration(500)
-    .attr('x', function(d){ return Math.random()*window.innerWidth;})
-    .attr('y', function(d){ return Math.random()*window.innerHeight;});
-    //.style('left', function(d){ return Math.random()*window.innerWidth + 'px'; })
-    //.style('top', function(d){ return Math.random()*window.innerHeight + 'px'; });
+    .style('left', function(d){ return Math.random()*window.innerWidth + 'px'; })
+    .style('top', function(d){ return Math.random()*window.innerHeight + 'px'; });
 };
 
-var updateScore = function() {  
+var updateScore = function() {
   if(!gameOver){
     score++;
     d3.select('.current').text('Current score: '+ score);
@@ -32,18 +31,18 @@ var updateScore = function() {
 };
 
 var svg = d3.select('body')
-            .append('svg')
-            .attr('height', window.innerHeight)
-            .attr('width', window.innerWidth);
+            .append('div')
+            .style('height', window.innerHeight+'px')
+            .style('width', window.innerWidth+'px');
 
-svg.selectAll('image')
+svg.selectAll('img')
   .data(array)
   .enter()
-  .append('svg:image')
-  .attr('height', '32')
-  .attr('width', '32')
-  .attr('xlink:href', 'shuriken.png');
-
-svg.selectAll('image').on('mouseover', function(){ gameOver = true; });
+  .append('img')
+  .style('height', '32px')
+  .style('width', '32px')
+  .attr('src', 'shuriken.png');
+  
+svg.selectAll('img').on('mouseover', function(){ gameOver = true; });
 
 updateScore();
