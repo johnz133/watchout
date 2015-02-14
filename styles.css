@@ -3,3 +3,11 @@
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
 
+
+.circle {
+  border-radius: 50%;
+  background-color: black;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
