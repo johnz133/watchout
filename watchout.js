@@ -13,34 +13,37 @@ var score = 0;
 var gameOver = false;
 
 var move = function (){
-  d3.selectAll('.circle')
+  svg.selectAll('image')
     .transition()
     .duration(500)
-    .style('left', function(d){ return Math.random()*window.innerWidth + 'px'; })
-    .style('top', function(d){ return Math.random()*window.innerHeight + 'px'; });
+    .attr('x', function(d){ return Math.random()*window.innerWidth;})
+    .attr('y', function(d){ return Math.random()*window.innerHeight;});
+    //.style('left', function(d){ return Math.random()*window.innerWidth + 'px'; })
+    //.style('top', function(d){ return Math.random()*window.innerHeight + 'px'; });
 };
 
-var updateScore = function() {
-  //implement event  
-  //event might trigger a flag to reset the score
-  
+var updateScore = function() {  
   if(!gameOver){
     score++;
     d3.select('.current').text('Current score: '+ score);
     setTimeout(updateScore, 500);
   }
-
   move();
 };
 
+var svg = d3.select('body')
+            .append('svg')
+            .attr('height', window.innerHeight)
+            .attr('width', window.innerWidth);
 
-d3.select('body')
-  .selectAll('div')
+svg.selectAll('image')
   .data(array)
   .enter()
-  .append('div')
-  .attr('class', 'circle');
+  .append('svg:image')
+  .attr('height', '32')
+  .attr('width', '32')
+  .attr('xlink:href', 'shuriken.png');
 
-d3.selectAll('.circle').on('mouseover', function(){ gameOver = true; });
+svg.selectAll('image').on('mouseover', function(){ gameOver = true; });
 
 updateScore();
